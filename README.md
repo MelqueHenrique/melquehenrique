@@ -1,13 +1,14 @@
 <div align="center">
 
-# Hi, I'm Melque Henrique 👋
+# Hi, I'm Melque Henrique.
 
-**Infrastructure & Security Background · Software Developer · Android Enthusiast**
+**Network Infrastructure · Systems Administration · Information Security**
 
-*Building useful products, exploring technology, and turning ideas into working software.*
+*Networks are my trade. Code is where I experiment.*
 
-[![LinkedIn](https://img.shields.io/badge/LinkedIn-Connect-0A66C2?style=flat-square&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/melque-henrique)
-[![GitHub](https://img.shields.io/badge/GitHub-MelqueHenrique-181717?style=flat-square&logo=github&logoColor=white)](https://github.com/MelqueHenrique)
+Building, maintaining, and understanding the systems that keep everything connected.
+
+[LinkedIn](https://www.linkedin.com/in/melque-henrique) · [GitHub](https://github.com/MelqueHenrique)
 
 </div>
 
@@ -15,31 +16,41 @@
 
 ### About me
 
-I'm a **Computer Science graduate** with a professional background in **network infrastructure and information security**, currently focused on **software engineering and native Android development**.
+I'm a **Computer Science graduate** with a professional background in **network infrastructure, systems administration, and information security**.
 
-I enjoy designing practical solutions, from backend services to mobile experiences, with an emphasis on clarity, maintainability, and thoughtful interfaces.
+My experience comes from keeping real-world infrastructure running — managing networks, servers, connectivity, and the systems people rely on every day.
 
-- 📱 Developing a social reading app for Android, focused on connecting readers and sharing reading experiences.
-- 🛡️ Interested in **network security, infrastructure automation, and security policy verification**.
-- 🧠 Working with **Kotlin, Jetpack Compose, Python, and Supabase**.
-- 📚 A reader who enjoys fantasy and science fiction.
-- 📍 Based in Brazil.
+Outside the infrastructure world, I write code. Mostly for personal projects, automation, and ideas I want to turn into something useful. Kotlin, Python, and Android development are part of that journey.
 
-## Tech & tools
+A few things about me:
+
+- 🌐 **Network infrastructure:** Routing, switching, VLANs, monitoring, and troubleshooting.
+- 🛡️ **Systems & security:** Linux, Windows Server, virtualization, and infrastructure security.
+- ⚙️ **Automation:** Building tools to simplify operations and solve practical problems.
+- 💻 **Side projects:** Exploring Kotlin, Python, and native Android development, including an app for readers.
+- 📚 **Off the grid:** Books, photography, music, and science fiction.
+- 📍 **Location:** Brazil.
+
+### Tech & tools
 
 ![Tech Stack](./assets/tech-stack.svg?v=2)
 
-### GitHub activity
+### Netrunner Activity
 
 <div align="center">
   <img src="./assets/activity.svg" alt="GitHub activity statistics covering authorized public and private repositories" width="860" />
-  <sub>Contribution counts: last 12 months · Language distribution: authorized, non-fork, non-archived owned repositories · Private repo names are never shown.</sub>
+
+  <sub>Activity: last 12 months · Authorized repositories · Private nodes remain hidden.</sub>
 </div>
 
 ---
 
 <div align="center">
 
-*Good software starts with curiosity and grows through consistency.*
+**/// SYSTEM LOG**
+
+*"Every system has a story. Follow the connections."*
+
+`CONNECTION ESTABLISHED // NETWORK OPERATOR`
 
 </div>
