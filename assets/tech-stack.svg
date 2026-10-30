@@ -1,0 +1,43 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="990" height="312" viewBox="0 0 990 312" role="img" aria-label="Technologies: Kotlin, Android, Jetpack Compose, Python, Supabase, Firebase, PostgreSQL, MySQL, MariaDB, Windows Server, Linux, MikroTik, Proxmox VE, Zabbix, Git and GitHub Actions">
+<rect width="100%" height="100%" rx="15" fill="#0D1117"/>
+<rect x="1" y="1" width="988" height="310" rx="14" fill="none" stroke="#303A4D"/>
+<style>text{font-family:Arial,Helvetica,sans-serif} .heading{font-size:13px;fill:#AEBBD2;font-weight:700;letter-spacing:1.4px}.badge{font-size:14px;fill:#F9FAFB;font-weight:600}</style>
+<rect x="24" y="23" width="4" height="16" rx="2" fill="#79F7BA"/>
+<text class="heading" x="38" y="35">MOBILE &amp; BACKEND</text>
+<rect x="24" y="52" rx="6" width="76" height="31" fill="#7F52FF"/>
+<text class="badge" x="38" y="72">Kotlin</text>
+<rect x="109" y="52" rx="6" width="84" height="31" fill="#247A52"/>
+<text class="badge" x="123" y="72">Android</text>
+<rect x="202" y="52" rx="6" width="149" height="31" fill="#2665C8"/>
+<text class="badge" x="216" y="72">Jetpack Compose</text>
+<rect x="360" y="52" rx="6" width="76" height="31" fill="#316C98"/>
+<text class="badge" x="374" y="72">Python</text>
+<rect x="445" y="52" rx="6" width="92" height="31" fill="#268C70"/>
+<text class="badge" x="459" y="72">Supabase</text>
+<rect x="546" y="52" rx="6" width="92" height="31" fill="#B96E14"/>
+<text class="badge" x="560" y="72">Firebase</text>
+<rect x="24" y="113" width="4" height="16" rx="2" fill="#79F7BA"/>
+<text class="heading" x="38" y="125">DATABASES</text>
+<rect x="24" y="142" rx="6" width="109" height="31" fill="#355C91"/>
+<text class="badge" x="38" y="162">PostgreSQL</text>
+<rect x="142" y="142" rx="6" width="68" height="31" fill="#21647F"/>
+<text class="badge" x="156" y="162">MySQL</text>
+<rect x="219" y="142" rx="6" width="84" height="31" fill="#805741"/>
+<text class="badge" x="233" y="162">MariaDB</text>
+<rect x="24" y="203" width="4" height="16" rx="2" fill="#79F7BA"/>
+<text class="heading" x="38" y="215">INFRASTRUCTURE, SECURITY &amp; DEVOPS</text>
+<rect x="24" y="232" rx="6" width="141" height="31" fill="#26649C"/>
+<text class="badge" x="38" y="252">Windows Server</text>
+<rect x="174" y="232" rx="6" width="68" height="31" fill="#404C59"/>
+<text class="badge" x="188" y="252">Linux</text>
+<rect x="251" y="232" rx="6" width="92" height="31" fill="#515D72"/>
+<text class="badge" x="265" y="252">MikroTik</text>
+<rect x="352" y="232" rx="6" width="109" height="31" fill="#B65A1D"/>
+<text class="badge" x="366" y="252">Proxmox VE</text>
+<rect x="470" y="232" rx="6" width="76" height="31" fill="#A62A3B"/>
+<text class="badge" x="484" y="252">Zabbix</text>
+<rect x="555" y="232" rx="6" width="52" height="31" fill="#C64737"/>
+<text class="badge" x="569" y="252">Git</text>
+<rect x="616" y="232" rx="6" width="141" height="31" fill="#205BA0"/>
+<text class="badge" x="630" y="252">GitHub Actions</text>
+</svg>
