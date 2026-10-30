@@ -27,7 +27,7 @@ I enjoy designing practical solutions, from backend services to mobile experienc
 
 ## Tech & tools
 
-![Tech Stack](./assets/tech-stack.svg)
+![Tech Stack](./assets/tech-stack.svg?v=2)
 
 ### GitHub activity
 
