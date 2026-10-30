@@ -25,13 +25,9 @@ I enjoy designing practical solutions, from backend services to mobile experienc
 - 📚 A reader who enjoys fantasy and science fiction.
 - 📍 Based in Brazil.
 
-
-
 ## Tech & tools
 
 ![Tech Stack](./assets/tech-stack.svg)
-
-
 
 ### GitHub activity
 
