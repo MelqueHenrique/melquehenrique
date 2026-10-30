@@ -124,6 +124,39 @@ def svg(commits, prs, issues, repo_count, langs, generated):
     return '\n'.join(parts) + '\n'
 
 
+def count_activity(repos, since):
+    """Count authored PRs and issues across accessible repositories."""
+    prs = 0
+    issues = 0
+    cutoff = since.isoformat()
+
+    for repo in repos:
+        base = repo['url']
+
+        for pr in pages(f'{base}/pulls', {
+            'state': 'all',
+            'sort': 'created',
+            'direction': 'desc',
+        }):
+            if pr['created_at'] < cutoff:
+                break
+            if pr['user']['login'].lower() == USERNAME.lower():
+                prs += 1
+
+        for issue in pages(f'{base}/issues', {
+            'state': 'all',
+            'sort': 'created',
+            'direction': 'desc',
+        }):
+            if issue['created_at'] < cutoff:
+                break
+            if ('pull_request' not in issue
+                    and issue['user']['login'].lower() == USERNAME.lower()):
+                issues += 1
+
+    return prs, issues
+
+
 def get_stats():
     now = dt.datetime.now(dt.timezone.utc)
     since = now - dt.timedelta(days=365)
