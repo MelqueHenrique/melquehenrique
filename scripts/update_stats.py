@@ -1,9 +1,8 @@
 #!/usr/bin/env python3
-"""GitHub profile stats including owned authorized private and archived repositories.
+"""Private-aware GitHub statistics rendered as a Netrunner-style SVG.
 
-Commits: unique authored SHAs across all branches in the last 365 days.
-PRs and issues: created by the account in the last 365 days, including merged/closed.
-Public output: aggregates only; never publishes private repository identities.
+Counts unique authored commit SHAs across branches; PRs and issues opened
+by account during last 365 days. SVG exposes only aggregate data.
 """
 import datetime as dt
 import html
@@ -56,61 +55,85 @@ def esc(value):
     return html.escape(str(value), quote=True)
 
 
-def txt(x, y, text, size=14, color='#b7c3d7', weight=400, anchor=None):
-    extra = f' text-anchor="{anchor}"' if anchor else ''
-    return (f'<text x="{x}" y="{y}" fill="{color}" font-size="{size}" '
-            f'font-weight="{weight}"{extra}>{esc(text)}</text>')
+def txt(x, y, value, size=14, color='#d1e7f2', weight=500, anchor=None, spacing=None):
+    attrs = (f' text-anchor="{anchor}"' if anchor else '')
+    attrs += (f' letter-spacing="{spacing}"' if spacing else '')
+    return (f'<text x="{x}" y="{y}" fill="{color}" font-family="Arial, Helvetica, sans-serif" '
+            f'font-size="{size}" font-weight="{weight}"{attrs}>{esc(value)}</text>')
+
+
+def poly(points, fill='none', stroke='#ff1859', sw=1):
+    return f'<polygon points="{points}" fill="{fill}" stroke="{stroke}" stroke-width="{sw}"/>'
 
 
 def svg(commits, prs, issues, repo_count, langs, generated):
-    parts = [
-        '<svg xmlns="http://www.w3.org/2000/svg" width="860" height="348" '
-        'viewBox="0 0 860 348" role="img" aria-label="GitHub activity dashboard">',
-        '<rect x="1" y="1" width="858" height="346" rx="18" fill="#0d1321" '
-        'stroke="#293246" stroke-width="2"/>',
-        '<rect x="26" y="28" width="5" height="23" rx="2.5" fill="#9a79ff"/>',
-        txt(44, 47, 'ACTIVITY OVERVIEW', 19, '#e9effb', 700),
-        txt(833, 44, 'LAST 12 MONTHS', 11, '#8d9ab4', 600, 'end'),
+    """Static network-trace HUD: all quantities are real; traces are ornamental."""
+    pink, cyan, bg, panel = '#ff175b', '#42d6e9', '#070a12', '#0a101b'
+    palette = ['#a481ff', '#40b8f5', '#38d9bc', '#ffbd60', '#fc597e', '#91a2b9']
+    out = [
+        '<svg xmlns="http://www.w3.org/2000/svg" width="1000" height="510" '
+        'viewBox="0 0 1000 510" role="img" aria-label="GitHub activity netrunner dashboard">',
+        '<rect width="1000" height="510" fill="#05070d"/>',
+        '<defs><pattern id="grid" width="25" height="25" patternUnits="userSpaceOnUse">'
+        '<path d="M25 0H0V25" fill="none" stroke="#1f2639" stroke-width=".5" opacity=".48"/>'
+        '</pattern><pattern id="scan" width="4" height="4" patternUnits="userSpaceOnUse">'
+        '<path d="M0 0H4" stroke="#1a2941" stroke-width=".5" opacity=".45"/></pattern></defs>',
+        '<rect x="10" y="10" width="980" height="490" fill="url(#grid)" stroke="#a70b3d" stroke-width="1.5"/>',
+        '<path d="M10 55H990" stroke="#ff175b" stroke-width="1.3"/>',
+        poly('25,24 51,24 38,43 25,43', pink, pink),
+        txt(62, 40, 'NETRUNNER ACTIVITY // TRACE ROUTE', 23, pink, 800, spacing='1.5'),
+        txt(967, 39, 'LAST 12 MONTHS', 12, cyan, 700, anchor='end', spacing='1'),
+        '<rect x="15" y="67" width="970" height="201" fill="none" stroke="#61203e"/>',
     ]
-    for i, (label, value) in enumerate([
-        ('COMMITS', commits), ('PULL REQUESTS', prs),
-        ('ISSUES', issues), ('REPOSITORIES', repo_count)
-    ]):
-        x = 26 + i * 207
-        parts += [
-            f'<rect x="{x}" y="72" width="190" height="92" rx="12" '
-            'fill="#151e31" stroke="#28334b"/>',
-            txt(x + 16, 97, label, 11, '#9eacc5', 600),
-            txt(x + 16, 141, str(value), 30, '#ffffff', 700),
-        ]
-    parts.extend([
-        txt(27, 206, 'LANGUAGE DISTRIBUTION', 13, '#dce5f6', 700),
-        txt(833, 205, 'AUTHORIZED REPOSITORIES', 11, '#8d9ab4', 500, 'end'),
+    cards = [('DATA PACKETS', commits, 'COMMITS.TRANSMITTED'),
+             ('ACCESS REQUESTS', prs, 'PULL.REQUESTS'),
+             ('SYSTEM FLAGS', issues, 'ISSUES.REPORTED'),
+             ('ACTIVE NODES', repo_count, 'REPOSITORIES.TRACKED')]
+    for i, (label, value, subtitle) in enumerate(cards):
+        x = 24 + i * 243
+        out.extend([
+            f'<path d="M{x+12} 76H{x+220}L{x+231} 87V249L{x+218} 260H{x}V87Z" '
+            f'fill="{panel}" stroke="{pink}" stroke-width="1.4"/>',
+            f'<path d="M{x} 98V87L{x+12} 76H{x+48}" stroke="{pink}" stroke-width="3" fill="none"/>',
+            txt(x+16, 106, label, 13, pink, 750, spacing='.7'),
+            txt(x+210, 105, f'[N-{i+1:02d}]', 10, pink, 500, 'end'),
+            txt(x+18, 172, value, 49, '#f9f6fa', 800),
+            f'<line x1="{x+18}" y1="215" x2="{x+206}" y2="215" stroke="{cyan}" stroke-width="1" opacity=".4"/>',
+            txt(x+17, 243, '// '+subtitle, 10, cyan, 600),
+        ])
+        # Deliberately decorative signal, not fake time-series data.
+        coords = ' '.join(f'{x+18+j*8},{206-(j*13+i*7)%10}' for j in range(24))
+        out.append(f'<polyline points="{coords}" fill="none" stroke="{cyan if i%2 else pink}" stroke-width="1" opacity=".85"/>')
+    out.extend([
+        '<path d="M18 280H982V457H18Z" fill="#090e17" stroke="#b50f45" stroke-width="1.2"/>',
+        '<rect x="37" y="299" width="6" height="27" fill="#ff175b"/>',
+        txt(58, 320, 'PROTOCOL DISTRIBUTION', 23, pink, 800, spacing='1.5'),
+        txt(959, 318, 'LANGUAGE.SCAN.RESULTS', 11, cyan, 600, 'end'),
+        '<rect x="39" y="342" width="920" height="35" fill="#151e2b" stroke="#8f1541"/>',
     ])
-    palette = ['#a78bfa', '#56b8f7', '#52d6ae', '#ffbf69', '#fb7185', '#9aa8c0']
     total = sum(n for _, n in langs)
     if total:
-        position = 27.0
+        pos = 40.0
         for i, (_, amount) in enumerate(langs[:6]):
-            width = 806 * amount / total
-            parts.append(f'<rect x="{position:.2f}" y="225" width="{width:.2f}" '
-                         f'height="15" fill="{palette[i]}"/>')
-            position += width
+            w = 918 * amount / total
+            out.append(f'<rect x="{pos:.2f}" y="343" width="{w:.2f}" height="33" fill="{palette[i]}"/>')
+            pos += w
         for i, (name, amount) in enumerate(langs[:6]):
-            x, y = 27 + (i % 3) * 268, 278 + (i // 3) * 27
-            pct = round(amount * 100 / total, 1)
-            parts.extend([
-                f'<circle cx="{x + 6}" cy="{y - 5}" r="5" fill="{palette[i]}"/>',
-                txt(x + 19, y, f'{name} {pct:g}%', 13, '#c6d2e7', 500),
+            x, y = 48 + (i % 3) * 310, 409 + (i // 3) * 31
+            percentage = round(amount * 100 / total, 1)
+            out.extend([
+                f'<circle cx="{x}" cy="{y-5}" r="6" fill="{palette[i]}"/>',
+                txt(x+17, y, f'{name} {percentage:g}%', 15, '#c9d6ec', 500)
             ])
     else:
-        parts.extend([
-            '<rect x="27" y="225" width="806" height="15" rx="6" fill="#293246"/>',
-            txt(27, 277, 'No language data available.', 13),
-        ])
-    parts += [txt(833, 329, f'Updated {generated} UTC • private repositories stay private',
-                  11, '#7c8ca6', 400, 'end'), '</svg>']
-    return '\n'.join(parts) + '\n'
+        out.append(txt(50, 410, 'NO LANGUAGE DATA', 14, cyan))
+    out.extend([
+        '<path d="M10 474H990" stroke="#ff175b" stroke-width="1.2"/>',
+        txt(30, 491, '>> TRACE COMPLETE  //  NETWORK TELEMETRY', 11, cyan, 600),
+        txt(967, 491, 'AUTHORIZED REPOSITORIES // PRIVATE NODES HIDDEN', 10, cyan, 500, 'end'),
+        '</svg>'
+    ])
+    return '\n'.join(out) + '\n'
 
 
 def count_activity(repos, since):
