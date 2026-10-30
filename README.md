@@ -19,7 +19,7 @@ Building, maintaining, and understanding the systems that keep everything connec
 
 I'm a **Computer Science graduate** with a professional background in **network infrastructure, systems administration, and information security**.
 
-Outside the infrastructure world, I write code. Mostly for personal projects, automation, and ideas I want to turn into something useful. Kotlin, Python, and Android development are part of that journey.
+Outside the infrastructure world, I write code. Mostly for personal projects, and ideas I want to turn into something useful. Kotlin, Python, and Android development are part of that journey.
 
 A few things about me:
 
