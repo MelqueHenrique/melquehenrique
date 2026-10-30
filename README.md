@@ -19,28 +19,40 @@ I'm a **Computer Science graduate** with a professional background in **network 
 
 I enjoy designing practical solutions, from backend services to mobile experiences, with an emphasis on clarity, maintainability, and thoughtful interfaces.
 
-- 📱 Building **ReadsNook**, an Android social reading app.
+- 📱 Developing a social reading app for Android, focused on connecting readers and sharing reading experiences.
 - 🛡️ Interested in **network security, infrastructure automation, and security policy verification**.
 - 🧠 Working with **Kotlin, Jetpack Compose, Python, and Supabase**.
 - 📚 A reader who enjoys fantasy and science fiction.
 - 📍 Based in Brazil.
 
-### Tech & tools
 
-**App & backend**
+## Tech & tools
+
+### Mobile & Backend
 
 ![Kotlin](https://img.shields.io/badge/Kotlin-7F52FF?style=flat-square&logo=kotlin&logoColor=white)
-![Android](https://img.shields.io/badge/Android-3DDC84?style=flat-square&logo=android&logoColor=111111)
+![Android](https://img.shields.io/badge/Android-34A853?style=flat-square&logo=android&logoColor=white)
 ![Jetpack Compose](https://img.shields.io/badge/Jetpack_Compose-4285F4?style=flat-square&logo=jetpackcompose&logoColor=white)
 ![Python](https://img.shields.io/badge/Python-3776AB?style=flat-square&logo=python&logoColor=white)
-![Supabase](https://img.shields.io/badge/Supabase-3FCF8E?style=flat-square&logo=supabase&logoColor=111111)
+![Supabase](https://img.shields.io/badge/Supabase-3ECF8E?style=flat-square&logo=supabase&logoColor=white)
+![Firebase](https://img.shields.io/badge/Firebase-DD8B16?style=flat-square&logo=firebase&logoColor=white)
 
-**Infrastructure & workflow**
+### Databases
 
-![Git](https://img.shields.io/badge/Git-F05032?style=flat-square&logo=git&logoColor=white)
-![GitHub Actions](https://img.shields.io/badge/GitHub_Actions-2088FF?style=flat-square&logo=githubactions&logoColor=white)
-![Linux](https://img.shields.io/badge/Linux-FCC624?style=flat-square&logo=linux&logoColor=111111)
-![PostgreSQL](https://img.shields.io/badge/PostgreSQL-4169E1?style=flat-square&logo=postgresql&logoColor=white)
+![PostgreSQL](https://img.shields.io/badge/PostgreSQL-4169A1?style=flat-square&logo=postgresql&logoColor=white)
+![MySQL](https://img.shields.io/badge/MySQL-31718D?style=flat-square&logo=mysql&logoColor=white)
+![MariaDB](https://img.shields.io/badge/MariaDB-855C43?style=flat-square&logo=mariadb&logoColor=white)
+
+### Infrastructure, Security & DevOps
+
+![Windows Server](https://img.shields.io/badge/Windows_Server-3277B9?style=flat-square&logo=windows&logoColor=white)
+![Linux](https://img.shields.io/badge/Linux-494F59?style=flat-square&logo=linux&logoColor=white)
+![MikroTik](https://img.shields.io/badge/MikroTik-525966?style=flat-square&logo=mikrotik&logoColor=white)
+![Proxmox VE](https://img.shields.io/badge/Proxmox_VE-C56820?style=flat-square&logo=proxmox&logoColor=white)
+![Zabbix](https://img.shields.io/badge/Zabbix-C42D39?style=flat-square)
+![Git](https://img.shields.io/badge/Git-E5523D?style=flat-square&logo=git&logoColor=white)
+![GitHub Actions](https://img.shields.io/badge/GitHub_Actions-2674C7?style=flat-square&logo=githubactions&logoColor=white)
+  
 
 ### GitHub activity
 
