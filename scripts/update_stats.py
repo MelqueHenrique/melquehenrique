@@ -1,179 +1,89 @@
-#!/usr/bin/env python3
-"""GitHub profile stats including owned authorized private and archived repositories.
-
-Commits: unique authored SHAs across all branches in the last 365 days.
-PRs and issues: created by the account in the last 365 days, including merged/closed.
-Public output: aggregates only; never publishes private repository identities.
-"""
-import datetime as dt
-import html
-import json
-import os
-from pathlib import Path
-import urllib.error
-import urllib.parse
-import urllib.request
-
-API = 'https://api.github.com'
-TOKEN = os.environ.get('GH_STATS_TOKEN', '')
-USERNAME = os.environ.get('GITHUB_USERNAME', 'MelqueHenrique')
-OUT = Path(__file__).resolve().parents[1] / 'assets' / 'activity.svg'
-
-
-def request(url, payload=None):
-    headers = {
-        'Authorization': f'Bearer {TOKEN}',
-        'Accept': 'application/vnd.github+json',
-        'User-Agent': 'personal-profile-stats',
-        'X-GitHub-Api-Version': '2022-11-28',
-    }
-    data = json.dumps(payload).encode() if payload is not None else None
-    if data is not None:
-        headers['Content-Type'] = 'application/json'
-    req = urllib.request.Request(url, data=data, headers=headers)
-    try:
-        with urllib.request.urlopen(req, timeout=30) as response:
-            return json.load(response)
-    except urllib.error.HTTPError as exc:
-        raise RuntimeError(f'GitHub API returned HTTP {exc.code}') from None
-
-
-def pages(url, params):
-    page = 1
-    while True:
-        query = urllib.parse.urlencode({**params, 'per_page': 100, 'page': page})
-        separator = '&' if '?' in url else '?'
-        batch = request(url + separator + query)
-        if not isinstance(batch, list):
-            raise RuntimeError('Unexpected GitHub API response (expected list)')
-        yield from batch
-        if len(batch) < 100:
-            break
-        page += 1
-
-
-def esc(value):
-    return html.escape(str(value), quote=True)
-
-
-def txt(x, y, text, size=14, color='#b7c3d7', weight=400, anchor=None):
-    extra = f' text-anchor="{anchor}"' if anchor else ''
-    return (f'<text x="{x}" y="{y}" fill="{color}" font-size="{size}" '
-            f'font-weight="{weight}"{extra}>{esc(text)}</text>')
-
-
 def svg(commits, prs, issues, repo_count, langs, generated):
-    parts = [
-        '<svg xmlns="http://www.w3.org/2000/svg" width="860" height="348" '
-        'viewBox="0 0 860 348" role="img" aria-label="GitHub activity dashboard">',
-        '<rect x="1" y="1" width="858" height="346" rx="18" fill="#0d1321" '
-        'stroke="#293246" stroke-width="2"/>',
-        '<rect x="26" y="28" width="5" height="23" rx="2.5" fill="#9a79ff"/>',
-        txt(44, 47, 'ACTIVITY OVERVIEW', 19, '#e9effb', 700),
-        txt(833, 44, 'LAST 12 MONTHS', 11, '#8d9ab4', 600, 'end'),
+    """Cyberpunk netrunner HUD. Uses only real aggregated stats and local SVG shapes."""
+    import html as _html
+
+    def text(x, y, value, size=14, color='#c4d6dc', weight=400, anchor=None, spacing=None):
+        a = f' text-anchor="{anchor}"' if anchor else ''
+        s = f' letter-spacing="{spacing}"' if spacing is not None else ''
+        return (f'<text x="{x}" y="{y}" fill="{color}" font-size="{size}" '
+                f'font-weight="{weight}"{a}{s}>{_html.escape(str(value))}</text>')
+
+    PINK, CYAN, WHITE, DIM = '#ff245b', '#40e4ee', '#f1eff2', '#7d9aa7'
+    W, H = 900, 470
+    p = [
+        f'<svg xmlns="http://www.w3.org/2000/svg" width="{W}" height="{H}" viewBox="0 0 {W} {H}" role="img" aria-label="GitHub netrunner activity dashboard">',
+        '<defs>',
+        '<pattern id="scanlines" width="4" height="4" patternUnits="userSpaceOnUse"><path d="M0 3.5H4" stroke="#fff" stroke-opacity=".025"/></pattern>',
+        '<pattern id="microgrid" width="32" height="32" patternUnits="userSpaceOnUse"><path d="M32 0H0V32" fill="none" stroke="#4d3350" stroke-opacity=".22" stroke-width=".7"/></pattern>',
+        '<linearGradient id="panel" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#11101d"/><stop offset="1" stop-color="#060a12"/></linearGradient>',
+        '<clipPath id="barclip"><rect x="36" y="320" width="828" height="23" rx="1"/></clipPath>',
+        '</defs>',
+        '<rect width="900" height="470" fill="#06060b"/>',
+        '<rect x="1" y="1" width="898" height="468" fill="url(#microgrid)" stroke="#92203f" stroke-width="1.4"/>',
+        '<rect x="1" y="1" width="898" height="468" fill="url(#scanlines)"/>',
+        '<path d="M10 56H465l17 -16H736l14 16H890" fill="none" stroke="#ff245b" stroke-width="1.5"/>',
+        '<path d="M12 12H70L55 27H12Z" fill="#ff245b"/>',
+        '<path d="M24 15l-7 10m18-10-7 10" stroke="#070a10" stroke-width="4"/>',
+        text(84, 36, 'NETRUNNER ACTIVITY // TRACE ROUTE', 21, PINK, 800, spacing='1.2'),
+        text(878, 36, 'LAST 12 MONTHS', 12, CYAN, 700, 'end', '.9'),
+        '<g fill="#ff245b">' + ''.join(f'<rect x="{585+i*13}" y="20" width="9" height="5" opacity="{.4+i*.11:.2f}"/>' for i in range(5)) + '</g>',
     ]
-    for i, (label, value) in enumerate([
-        ('COMMITS', commits), ('PULL REQUESTS', prs),
-        ('ISSUES', issues), ('REPOSITORIES', repo_count)
-    ]):
-        x = 26 + i * 207
-        parts += [
-            f'<rect x="{x}" y="72" width="190" height="92" rx="12" '
-            'fill="#151e31" stroke="#28334b"/>',
-            txt(x + 16, 97, label, 11, '#9eacc5', 600),
-            txt(x + 16, 141, str(value), 30, '#ffffff', 700),
-        ]
-    parts.extend([
-        txt(27, 206, 'LANGUAGE DISTRIBUTION', 13, '#dce5f6', 700),
-        txt(833, 205, 'AUTHORIZED REPOSITORIES', 11, '#8d9ab4', 500, 'end'),
-    ])
-    palette = ['#a78bfa', '#56b8f7', '#52d6ae', '#ffbf69', '#fb7185', '#9aa8c0']
-    total = sum(n for _, n in langs)
+    cards = [
+        ('DATA PACKETS', commits, 'COMMITS.TRANSMITTED'),
+        ('ACCESS REQUESTS', prs, 'PULL.REQUESTS'),
+        ('SYSTEM FLAGS', issues, 'ISSUES.REPORTED'),
+        ('NETWORK NODES', repo_count, 'REPOSITORIES.COUNT'),
+    ]
+    for i, (label, value, sub) in enumerate(cards):
+        x, y, w, h = 18 + i * 221, 76, 209, 150
+        path = (f'M{x+10} {y}H{x+w}V{y+h-11}L{x+w-11} {y+h}'
+                f'H{x}V{y+10}Z')
+        p += [f'<path d="{path}" fill="url(#panel)" stroke="#a71942" stroke-width="1.3"/>',
+              f'<path d="M{x} {y+25}V{y+10}L{x+10} {y}H{x+67}" stroke="{PINK}" stroke-width="2" fill="none"/>',
+              f'<path d="M{x+w-52} {y+4}H{x+w-14}" stroke="{PINK}" stroke-width="2"/>',
+              text(x+18, y+30, label, 13, PINK, 700, spacing='.5'),
+              text(x+w-14, y+30, f'[N-0{i+1}]', 9, '#d34672', 600, 'end'),
+              text(x+18, y+88, value, 41, WHITE, 800),
+              f'<path d="M{x+16} {y+102}H{x+w-16}" stroke="#632440" stroke-width="1"/>',
+              # Deterministic technical trace, explicitly decoration rather than fabricated history.
+              f'<path d="M{x+16} {y+117}h17l5 -7 7 11 6 -9 9 3 7 -8 8 12 9 -6 8 3 8 -12 8 9 8 -4 9 6 7 -8 9 5 10 -5 7 5" stroke="{CYAN if i%2 else PINK}" fill="none" stroke-width="1.15" opacity=".75"/>',
+              text(x+17, y+138, '// '+sub, 9, '#67a5b5', 500),
+              f'<rect x="{x+w-38}" y="{y+130}" width="7" height="4" fill="{CYAN}"/>',
+              f'<rect x="{x+w-28}" y="{y+130}" width="7" height="4" fill="{CYAN}" opacity=".55"/>',
+              f'<rect x="{x+w-18}" y="{y+130}" width="7" height="4" fill="none" stroke="#55808d"/>']
+    p += [
+        '<path d="M18 247H882V430H18Z" fill="url(#panel)" stroke="#9f1e43" stroke-width="1.3"/>',
+        '<rect x="34" y="264" width="5" height="26" fill="#ff245b"/>',
+        text(52, 286, 'PROTOCOL DISTRIBUTION', 20, PINK, 800, spacing='.9'),
+        text(866, 281, 'LANGUAGE.SCAN.RESULTS', 10, '#6db9c9', 600, 'end'),
+        '<path d="M52 297H866" stroke="#542138"/>',
+        '<rect x="35" y="318" width="830" height="27" fill="#1a2330" stroke="#9e2450" stroke-width=".8"/>',
+        '<g clip-path="url(#barclip)">',
+    ]
+    palette = ['#9e7cff', '#4cbaf3', '#45d7bc', '#ffb85c', '#f75a80', '#8799b5']
+    total = sum(amount for _, amount in langs)
     if total:
-        position = 27.0
-        for i, (_, amount) in enumerate(langs[:6]):
-            width = 806 * amount / total
-            parts.append(f'<rect x="{position:.2f}" y="225" width="{width:.2f}" '
-                         f'height="15" fill="{palette[i]}"/>')
-            position += width
-        for i, (name, amount) in enumerate(langs[:6]):
-            x, y = 27 + (i % 3) * 268, 278 + (i // 3) * 27
-            pct = round(amount * 100 / total, 1)
-            parts.extend([
-                f'<circle cx="{x + 6}" cy="{y - 5}" r="5" fill="{palette[i]}"/>',
-                txt(x + 19, y, f'{name} {pct:g}%', 13, '#c6d2e7', 500),
-            ])
+        pos = 36.0
+        # Group any languages beyond slot six into "Other", preserving 100% of the total.
+        visible = list(langs[:5])
+        if len(langs) > 5:
+            visible.append(('Other', sum(n for _, n in langs[5:])))
+        for i, (_, amount) in enumerate(visible):
+            width = 828 * amount / total
+            p.append(f'<rect x="{pos:.3f}" y="320" width="{width:.3f}" height="23" fill="{palette[i]}"/>')
+            pos += width
+        p.append('</g>')
+        for i, (name, amount) in enumerate(visible):
+            x, y = 40 + (i % 3) * 278, 377 + (i // 3) * 30
+            pct = 100 * amount / total
+            p += [f'<circle cx="{x}" cy="{y-5}" r="5.4" fill="{palette[i]}"/>',
+                  text(x+13, y, f'{name} {pct:.1f}%', 13, '#ccdae4', 500)]
     else:
-        parts.extend([
-            '<rect x="27" y="225" width="806" height="15" rx="6" fill="#293246"/>',
-            txt(27, 277, 'No language data available.', 13),
-        ])
-    parts += [txt(833, 329, f'Updated {generated} UTC • private repositories stay private',
-                  11, '#7c8ca6', 400, 'end'), '</svg>']
-    return '\n'.join(parts) + '\n'
-
-
-def count_activity(repos, since):
-    """Count user-created PRs and issues. Pulls listed in issues do not double count."""
-    prs = 0
-    issues = 0
-    cutoff = since.strftime('%Y-%m-%dT%H:%M:%SZ')
-    for repo in repos:
-        pulls_url = repo['pulls_url'].split('{')[0]
-        for pr in pages(pulls_url, {'state': 'all', 'sort': 'created', 'direction': 'desc'}):
-            if pr['created_at'] < cutoff:
-                break
-            if pr['user']['login'].casefold() == USERNAME.casefold():
-                prs += 1
-        issues_url = repo['issues_url'].split('{')[0]
-        for issue in pages(issues_url, {'state': 'all', 'sort': 'created', 'direction': 'desc'}):
-            if issue['created_at'] < cutoff:
-                break
-            if 'pull_request' not in issue and issue['user']['login'].casefold() == USERNAME.casefold():
-                issues += 1
-    return prs, issues
-
-
-def get_stats():
-    now = dt.datetime.now(dt.timezone.utc)
-    since = now - dt.timedelta(days=365)
-    repos = [repo for repo in pages(f'{API}/user/repos',
-             {'affiliation': 'owner', 'visibility': 'all'})
-             if not repo.get('fork')]  # Include archived repositories.
-    seen_commits = set()
-    language_totals = {}
-    for repo in repos:
-        for language, byte_count in request(repo['languages_url']).items():
-            language_totals[language] = language_totals.get(language, 0) + byte_count
-        for branch in pages(repo['branches_url'].split('{')[0], {}):
-            for commit in pages(repo['commits_url'].split('{')[0], {
-                'sha': branch['name'], 'author': USERNAME,
-                'since': since.isoformat(), 'until': now.isoformat(),
-            }):
-                seen_commits.add((repo['id'], commit['sha']))
-    prs, issues = count_activity(repos, since)
-    ranking = sorted(language_totals.items(), key=lambda pair: pair[1], reverse=True)
-    languages = ranking[:5]
-    remaining = sum(amount for _, amount in ranking[5:])
-    if remaining:
-        languages.append(('Other', remaining))
-    return (len(seen_commits), prs, issues, len(repos), languages,
-            now.strftime('%Y-%m-%d'))
-
-
-def main():
-    if not TOKEN:
-        raise SystemExit('Missing GH_STATS_TOKEN environment variable')
-    commits, prs, issues, count, languages, date = get_stats()
-    OUT.parent.mkdir(parents=True, exist_ok=True)
-    output = svg(commits, prs, issues, count, languages, date)
-    if not OUT.exists() or OUT.read_text(encoding='utf-8') != output:
-        OUT.write_text(output, encoding='utf-8')
-        print('Updated SVG')
-    else:
-        print('No SVG changes')
-    print(f'Complete: {count} repositories; {commits} commits; {prs} PRs; {issues} issues (last 365 days)')
-
-
-if __name__ == '__main__':
-    main()
+        p += ['</g>', text(42, 382, 'No language data available', 13, DIM)]
+    p += [
+        '<path d="M12 444H888" stroke="#ba204c" stroke-width="1.2"/>',
+        text(25, 460, '>> TRACE COMPLETE // AGGREGATED GITHUB DATA', 10, CYAN, 600),
+        text(877, 460, f'UPDATED {generated} UTC // PRIVATE NODES HIDDEN', 9, DIM, 600, 'end'),
+        '</svg>',
+    ]
+    return '\n'.join(p) + '\n'
