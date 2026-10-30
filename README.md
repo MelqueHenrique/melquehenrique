@@ -1,14 +1,15 @@
 <div align="center">
 
-# Hi, I'm Melque Henrique.
+# Hi, I'm Melque Henrique 👋
 
-**Network Infrastructure · Systems Administration · Information Security**
+**Software Developer · Infrastructure & Security Background · Android Enthusiast**
 
 *Networks are my trade. Code is where I experiment.*
 
 Building, maintaining, and understanding the systems that keep everything connected.
 
-[LinkedIn](https://www.linkedin.com/in/melque-henrique) · [GitHub](https://github.com/MelqueHenrique)
+[![LinkedIn](https://img.shields.io/badge/LinkedIn-Connect-0A66C2?style=flat-square&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/melque-henrique)
+[![GitHub](https://img.shields.io/badge/GitHub-MelqueHenrique-181717?style=flat-square&logo=github&logoColor=white)](https://github.com/MelqueHenrique)
 
 </div>
 
