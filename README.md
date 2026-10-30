@@ -35,7 +35,7 @@ I enjoy designing practical solutions, from backend services to mobile experienc
 ![Jetpack Compose](https://img.shields.io/badge/Jetpack_Compose-4285F4?style=flat-square&logo=jetpackcompose&logoColor=white)
 ![Python](https://img.shields.io/badge/Python-3776AB?style=flat-square&logo=python&logoColor=white)
 ![Supabase](https://img.shields.io/badge/Supabase-3ECF8E?style=flat-square&logo=supabase&logoColor=white)
-![Firebase](https://img.shields.io/badge/Firebase-DD8B16?style=flat-square&logo=firebase&logoColor=white)
+![Firebase](https://img.shields.io/badge/Firebase-DD8B16?style=flat-square)
 
 ### Databases
 
@@ -45,14 +45,14 @@ I enjoy designing practical solutions, from backend services to mobile experienc
 
 ### Infrastructure, Security & DevOps
 
-![Windows Server](https://img.shields.io/badge/Windows_Server-3277B9?style=flat-square&logo=windows&logoColor=white)
-![Linux](https://img.shields.io/badge/Linux-494F59?style=flat-square&logo=linux&logoColor=white)
-![MikroTik](https://img.shields.io/badge/MikroTik-525966?style=flat-square&logo=mikrotik&logoColor=white)
-![Proxmox VE](https://img.shields.io/badge/Proxmox_VE-C56820?style=flat-square&logo=proxmox&logoColor=white)
+![Windows Server](https://img.shields.io/badge/Windows%20Server-3277B9?style=flat-square)
+![Linux](https://img.shields.io/badge/Linux-494F59?style=flat-square)
+![MikroTik](https://img.shields.io/badge/MikroTik-525966?style=flat-square)
+![Proxmox VE](https://img.shields.io/badge/Proxmox%20VE-C56820?style=flat-square)
 ![Zabbix](https://img.shields.io/badge/Zabbix-C42D39?style=flat-square)
-![Git](https://img.shields.io/badge/Git-E5523D?style=flat-square&logo=git&logoColor=white)
-![GitHub Actions](https://img.shields.io/badge/GitHub_Actions-2674C7?style=flat-square&logo=githubactions&logoColor=white)
-  
+![Git](https://img.shields.io/badge/Git-E5523D?style=flat-square)
+![GitHub Actions](https://img.shields.io/badge/GitHub%20Actions-2674C7?style=flat-square)
+
 
 ### GitHub activity
 
