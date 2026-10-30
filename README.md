@@ -2,7 +2,7 @@
 
 # Hi, I'm Melque Henrique 👋
 
-**Software Developer · Infrastructure & Security Background · Android Enthusiast**
+**Infrastructure & Security Background · Software Developer · Android Enthusiast**
 
 *Building useful products, exploring technology, and turning ideas into working software.*
 
