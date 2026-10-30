@@ -2,7 +2,7 @@
 
 # Hi, I'm Melque Henrique 👋
 
-**Software Developer · Infrastructure & Security Background · Android Enthusiast**
+**Infrastructure & Security Background · Software Developer · Android Enthusiast**
 
 *Networks are my trade. Code is where I experiment.*
 
