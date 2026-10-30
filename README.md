@@ -1,14 +1,15 @@
 <div align="center">
 
-# Hi, I'm Melque Henrique.
+# Hi, I'm Melque Henrique 👋
 
-**Network Infrastructure · Systems Administration · Information Security**
+**Infrastructure & Security Background · Software Developer · Android Enthusiast**
 
 *Networks are my trade. Code is where I experiment.*
 
 Building, maintaining, and understanding the systems that keep everything connected.
 
-[LinkedIn](https://www.linkedin.com/in/melque-henrique) · [GitHub](https://github.com/MelqueHenrique)
+[![LinkedIn](https://img.shields.io/badge/LinkedIn-Connect-0A66C2?style=flat-square&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/melque-henrique)
+[![GitHub](https://img.shields.io/badge/GitHub-MelqueHenrique-181717?style=flat-square&logo=github&logoColor=white)](https://github.com/MelqueHenrique)
 
 </div>
 
@@ -26,16 +27,15 @@ A few things about me:
 
 - 🌐 **Network infrastructure:** Routing, switching, VLANs, monitoring, and troubleshooting.
 - 🛡️ **Systems & security:** Linux, Windows Server, virtualization, and infrastructure security.
-- ⚙️ **Automation:** Building tools to simplify operations and solve practical problems.
 - 💻 **Side projects:** Exploring Kotlin, Python, and native Android development, including an app for readers.
 - 📚 **Off the grid:** Books, photography, music, and science fiction.
 - 📍 **Location:** Brazil.
 
-### Tech & tools
+---
 
 ![Tech Stack](./assets/tech-stack.svg?v=2)
 
-### Netrunner Activity
+---
 
 <div align="center">
   <img src="./assets/activity.svg" alt="GitHub activity statistics covering authorized public and private repositories" width="860" />
