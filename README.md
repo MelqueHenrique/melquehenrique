@@ -8,8 +8,7 @@
 
 Building, maintaining, and understanding the systems that keep everything connected.
 
-[![LinkedIn · Connect](./assets/linkedin-button.svg)](https://www.linkedin.com/in/melque-henrique)
-[![GitHub · MelqueHenrique](./assets/github-button.svg)](https://github.com/MelqueHenrique)
+[LinkedIn](https://www.linkedin.com/in/melque-henrique) · [GitHub](https://github.com/MelqueHenrique)
 
 </div>
 
