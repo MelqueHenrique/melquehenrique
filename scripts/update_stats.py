@@ -1,9 +1,9 @@
 #!/usr/bin/env python3
-"""Generate an aggregated GitHub profile SVG, including authorized private repositories.
+"""GitHub profile stats including owned authorized private and archived repositories.
 
-Commit metric: unique commits authored by the account across *all branches* of
-owned, non-archived, non-fork repositories during the last 365 days.
-No repo names, commit identities, or tokens appear in the published SVG.
+Commits: unique authored SHAs across all branches in the last 365 days.
+PRs and issues: created by the account in the last 365 days, including merged/closed.
+Public output: aggregates only; never publishes private repository identities.
 """
 import datetime as dt
 import html
@@ -18,15 +18,6 @@ API = 'https://api.github.com'
 TOKEN = os.environ.get('GH_STATS_TOKEN', '')
 USERNAME = os.environ.get('GITHUB_USERNAME', 'MelqueHenrique')
 OUT = Path(__file__).resolve().parents[1] / 'assets' / 'activity.svg'
-GRAPHQL = '''query($from: DateTime!, $to: DateTime!) {
-  viewer {
-    login
-    contributionsCollection(from: $from, to: $to) {
-      totalPullRequestContributions
-      totalIssueContributions
-    }
-  }
-}'''
 
 
 def request(url, payload=None):
@@ -44,12 +35,10 @@ def request(url, payload=None):
         with urllib.request.urlopen(req, timeout=30) as response:
             return json.load(response)
     except urllib.error.HTTPError as exc:
-        # Never print auth headers, token, repository paths or private API bodies.
         raise RuntimeError(f'GitHub API returned HTTP {exc.code}') from None
 
 
 def pages(url, params):
-    """Fetch every REST page, erroring rather than silently truncating stats."""
     page = 1
     while True:
         query = urllib.parse.urlencode({**params, 'per_page': 100, 'page': page})
@@ -125,77 +114,50 @@ def svg(commits, prs, issues, repo_count, langs, generated):
 
 
 def count_activity(repos, since):
-    """Count authored PRs and issues across accessible repositories."""
+    """Count user-created PRs and issues. Pulls listed in issues do not double count."""
     prs = 0
     issues = 0
-    cutoff = since.isoformat()
-
+    cutoff = since.strftime('%Y-%m-%dT%H:%M:%SZ')
     for repo in repos:
-        base = repo['url']
-
-        for pr in pages(f'{base}/pulls', {
-            'state': 'all',
-            'sort': 'created',
-            'direction': 'desc',
-        }):
+        pulls_url = repo['pulls_url'].split('{')[0]
+        for pr in pages(pulls_url, {'state': 'all', 'sort': 'created', 'direction': 'desc'}):
             if pr['created_at'] < cutoff:
                 break
-            if pr['user']['login'].lower() == USERNAME.lower():
+            if pr['user']['login'].casefold() == USERNAME.casefold():
                 prs += 1
-
-        for issue in pages(f'{base}/issues', {
-            'state': 'all',
-            'sort': 'created',
-            'direction': 'desc',
-        }):
+        issues_url = repo['issues_url'].split('{')[0]
+        for issue in pages(issues_url, {'state': 'all', 'sort': 'created', 'direction': 'desc'}):
             if issue['created_at'] < cutoff:
                 break
-            if ('pull_request' not in issue
-                    and issue['user']['login'].lower() == USERNAME.lower()):
+            if 'pull_request' not in issue and issue['user']['login'].casefold() == USERNAME.casefold():
                 issues += 1
-
     return prs, issues
 
 
 def get_stats():
     now = dt.datetime.now(dt.timezone.utc)
     since = now - dt.timedelta(days=365)
-    data = request(f'{API}/graphql', {'query': GRAPHQL,
-                    'variables': {'from': since.isoformat(), 'to': now.isoformat()}})
-    if data.get('errors'):
-        raise RuntimeError('GraphQL request failed; check token access')
-    viewer = data['data']['viewer']
-    if viewer['login'].lower() != USERNAME.lower():
-        raise RuntimeError('Token belongs to a different GitHub account')
-    contributions = viewer['contributionsCollection']
-
     repos = [repo for repo in pages(f'{API}/user/repos',
              {'affiliation': 'owner', 'visibility': 'all'})
-             if not repo.get('fork') and not repo.get('archived')]
-    seen_commits = set()  # (repository ID, SHA); avoid counting cross-branch duplicates.
+             if not repo.get('fork')]  # Include archived repositories.
+    seen_commits = set()
     language_totals = {}
     for repo in repos:
-        # GitHub language endpoint gives byte counts, including private repositories.
         for language, byte_count in request(repo['languages_url']).items():
             language_totals[language] = language_totals.get(language, 0) + byte_count
-
-        # REST 'author' filters commit identity by GitHub username. Query each branch
-        # because GraphQL's contribution calendar is default-branch-only.
         for branch in pages(repo['branches_url'].split('{')[0], {}):
             for commit in pages(repo['commits_url'].split('{')[0], {
                 'sha': branch['name'], 'author': USERNAME,
                 'since': since.isoformat(), 'until': now.isoformat(),
             }):
                 seen_commits.add((repo['id'], commit['sha']))
-
+    prs, issues = count_activity(repos, since)
     ranking = sorted(language_totals.items(), key=lambda pair: pair[1], reverse=True)
     languages = ranking[:5]
     remaining = sum(amount for _, amount in ranking[5:])
     if remaining:
         languages.append(('Other', remaining))
-    # Use a stable date marker, not the exact second, to avoid unneeded commits.
-    return (len(seen_commits), contributions['totalPullRequestContributions'],
-            contributions['totalIssueContributions'], len(repos), languages,
+    return (len(seen_commits), prs, issues, len(repos), languages,
             now.strftime('%Y-%m-%d'))
 
 
@@ -210,7 +172,7 @@ def main():
         print('Updated SVG')
     else:
         print('No SVG changes')
-    print(f'Complete: {count} repositories; {commits} unique author commits in last 365 days')
+    print(f'Complete: {count} repositories; {commits} commits; {prs} PRs; {issues} issues (last 365 days)')
 
 
 if __name__ == '__main__':
