@@ -11,7 +11,7 @@
 <path d="M24 98V87L36 76H72" stroke="#ff175b" stroke-width="3" fill="none"/>
 <text x="40" y="106" fill="#ff175b" font-family="Arial, Helvetica, sans-serif" font-size="13" font-weight="750" letter-spacing=".7">DATA PACKETS</text>
 <text x="234" y="105" fill="#ff175b" font-family="Arial, Helvetica, sans-serif" font-size="10" font-weight="500" text-anchor="end">[N-01]</text>
-<text x="42" y="172" fill="#f9f6fa" font-family="Arial, Helvetica, sans-serif" font-size="49" font-weight="800">842</text>
+<text x="42" y="172" fill="#f9f6fa" font-family="Arial, Helvetica, sans-serif" font-size="49" font-weight="800">913</text>
 <line x1="42" y1="215" x2="230" y2="215" stroke="#42d6e9" stroke-width="1" opacity=".4"/>
 <text x="41" y="243" fill="#42d6e9" font-family="Arial, Helvetica, sans-serif" font-size="10" font-weight="600">// COMMITS.TRANSMITTED</text>
 <polyline points="42,206 50,203 58,200 66,197 74,204 82,201 90,198 98,205 106,202 114,199 122,206 130,203 138,200 146,197 154,204 162,201 170,198 178,205 186,202 194,199 202,206 210,203 218,200 226,197" fill="none" stroke="#ff175b" stroke-width="1" opacity=".85"/>
@@ -19,7 +19,7 @@
 <path d="M267 98V87L279 76H315" stroke="#ff175b" stroke-width="3" fill="none"/>
 <text x="283" y="106" fill="#ff175b" font-family="Arial, Helvetica, sans-serif" font-size="13" font-weight="750" letter-spacing=".7">ACCESS REQUESTS</text>
 <text x="477" y="105" fill="#ff175b" font-family="Arial, Helvetica, sans-serif" font-size="10" font-weight="500" text-anchor="end">[N-02]</text>
-<text x="285" y="172" fill="#f9f6fa" font-family="Arial, Helvetica, sans-serif" font-size="49" font-weight="800">57</text>
+<text x="285" y="172" fill="#f9f6fa" font-family="Arial, Helvetica, sans-serif" font-size="49" font-weight="800">71</text>
 <line x1="285" y1="215" x2="473" y2="215" stroke="#42d6e9" stroke-width="1" opacity=".4"/>
 <text x="284" y="243" fill="#42d6e9" font-family="Arial, Helvetica, sans-serif" font-size="10" font-weight="600">// PULL.REQUESTS</text>
 <polyline points="285,199 293,206 301,203 309,200 317,197 325,204 333,201 341,198 349,205 357,202 365,199 373,206 381,203 389,200 397,197 405,204 413,201 421,198 429,205 437,202 445,199 453,206 461,203 469,200" fill="none" stroke="#42d6e9" stroke-width="1" opacity=".85"/>
@@ -44,24 +44,24 @@
 <text x="58" y="320" fill="#ff175b" font-family="Arial, Helvetica, sans-serif" font-size="23" font-weight="800" letter-spacing="1.5">PROTOCOL DISTRIBUTION</text>
 <text x="959" y="318" fill="#42d6e9" font-family="Arial, Helvetica, sans-serif" font-size="11" font-weight="600" text-anchor="end">LANGUAGE.SCAN.RESULTS</text>
 <rect x="39" y="342" width="920" height="35" fill="#151e2b" stroke="#8f1541"/>
-<rect x="40.00" y="343" width="584.16" height="33" fill="#a481ff"/>
-<rect x="624.16" y="343" width="123.59" height="33" fill="#40b8f5"/>
-<rect x="747.75" y="343" width="107.40" height="33" fill="#38d9bc"/>
-<rect x="855.14" y="343" width="44.40" height="33" fill="#ffbd60"/>
-<rect x="899.54" y="343" width="33.61" height="33" fill="#fc597e"/>
-<rect x="933.16" y="343" width="24.84" height="33" fill="#91a2b9"/>
+<rect x="40.00" y="343" width="536.17" height="33" fill="#a481ff"/>
+<rect x="576.17" y="343" width="165.34" height="33" fill="#40b8f5"/>
+<rect x="741.50" y="343" width="113.49" height="33" fill="#38d9bc"/>
+<rect x="854.99" y="343" width="46.95" height="33" fill="#ffbd60"/>
+<rect x="901.95" y="343" width="33.10" height="33" fill="#fc597e"/>
+<rect x="935.05" y="343" width="22.95" height="33" fill="#91a2b9"/>
 <circle cx="48" cy="404" r="6" fill="#a481ff"/>
-<text x="65" y="409" fill="#c9d6ec" font-family="Arial, Helvetica, sans-serif" font-size="15" font-weight="500">Kotlin 63.6%</text>
+<text x="65" y="409" fill="#c9d6ec" font-family="Arial, Helvetica, sans-serif" font-size="15" font-weight="500">Kotlin 58.4%</text>
 <circle cx="358" cy="404" r="6" fill="#40b8f5"/>
-<text x="375" y="409" fill="#c9d6ec" font-family="Arial, Helvetica, sans-serif" font-size="15" font-weight="500">HTML 13.5%</text>
+<text x="375" y="409" fill="#c9d6ec" font-family="Arial, Helvetica, sans-serif" font-size="15" font-weight="500">PLpgSQL 18%</text>
 <circle cx="668" cy="404" r="6" fill="#38d9bc"/>
-<text x="685" y="409" fill="#c9d6ec" font-family="Arial, Helvetica, sans-serif" font-size="15" font-weight="500">PLpgSQL 11.7%</text>
+<text x="685" y="409" fill="#c9d6ec" font-family="Arial, Helvetica, sans-serif" font-size="15" font-weight="500">HTML 12.4%</text>
 <circle cx="48" cy="435" r="6" fill="#ffbd60"/>
-<text x="65" y="440" fill="#c9d6ec" font-family="Arial, Helvetica, sans-serif" font-size="15" font-weight="500">TypeScript 4.8%</text>
+<text x="65" y="440" fill="#c9d6ec" font-family="Arial, Helvetica, sans-serif" font-size="15" font-weight="500">TypeScript 5.1%</text>
 <circle cx="358" cy="435" r="6" fill="#fc597e"/>
-<text x="375" y="440" fill="#c9d6ec" font-family="Arial, Helvetica, sans-serif" font-size="15" font-weight="500">Astro 3.7%</text>
+<text x="375" y="440" fill="#c9d6ec" font-family="Arial, Helvetica, sans-serif" font-size="15" font-weight="500">Astro 3.6%</text>
 <circle cx="668" cy="435" r="6" fill="#91a2b9"/>
-<text x="685" y="440" fill="#c9d6ec" font-family="Arial, Helvetica, sans-serif" font-size="15" font-weight="500">Other 2.7%</text>
+<text x="685" y="440" fill="#c9d6ec" font-family="Arial, Helvetica, sans-serif" font-size="15" font-weight="500">Other 2.5%</text>
 <path d="M10 474H990" stroke="#ff175b" stroke-width="1.2"/>
 <text x="30" y="491" fill="#42d6e9" font-family="Arial, Helvetica, sans-serif" font-size="11" font-weight="600">&gt;&gt; TRACE COMPLETE  //  NETWORK TELEMETRY</text>
 <text x="967" y="491" fill="#42d6e9" font-family="Arial, Helvetica, sans-serif" font-size="10" font-weight="500" text-anchor="end">AUTHORIZED REPOSITORIES // PRIVATE NODES HIDDEN</text>
